@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane onMouseClicked="#newAuto" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cars.app.loading.ControllerAdd">
+   <children>
+      <Button fx:id="buttonAdd" defaultButton="true" layoutX="199.0" layoutY="335.0" mnemonicParsing="false" onAction="#addNewCar" prefHeight="25.0" prefWidth="159.0" text="Добавить!" textOverrun="CENTER_ELLIPSIS" underline="true" />
+      <TextField fx:id="fieldModel" layoutX="300.0" layoutY="101.0" prefHeight="25.0" prefWidth="247.0" promptText="Модель" />
+      <TextField fx:id="fieldPhone" layoutX="300.0" layoutY="148.0" prefHeight="25.0" prefWidth="247.0" promptText="Телефон" />
+      <TextField fx:id="fieldPrice" layoutX="300.0" layoutY="197.0" prefHeight="25.0" prefWidth="247.0" promptText="Цена, руб" />
+      <TextField fx:id="fieldYear" layoutX="32.0" layoutY="148.0" prefHeight="25.0" prefWidth="247.0" promptText="Год выпуска" />
+      <TextField fx:id="fieldMileage" layoutX="32.0" layoutY="197.0" prefHeight="25.0" prefWidth="247.0" promptText="Пробег, км" />
+      <Label layoutX="32.0" layoutY="42.0" text="Добавить автомобиль">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="brand" layoutX="33.0" layoutY="101.0" onAction="#newAuto" prefHeight="25.0" prefWidth="247.0" promptText="Марка">
+      </ComboBox>
+      <Label fx:id="label" layoutX="33.0" layoutY="239.0" prefHeight="52.0" prefWidth="247.0" text="Дополнительная информация не обязательна, фото - обязательно" wrapText="true" />
+      <Button fx:id="close" layoutX="502.0" layoutY="48.0" mnemonicParsing="false" onAction="#closeWindowAdd" text="Назад" />
+      <Button fx:id="addPhoto" layoutX="31.0" layoutY="335.0" mnemonicParsing="false" onAction="#addPhotograph" prefHeight="25.0" prefWidth="159.0" text="Добавить фото" />
+      <TextField fx:id="briefInfo" layoutX="300.0" layoutY="246.0" prefHeight="25.0" prefWidth="247.0" promptText="Краткое описание" />
+
+   </children>
+</AnchorPane>

@@ -1,0 +1,6 @@
+Audi 1 2001 2001 2001 2001 C:\img\1.jpgхорошая машина
+Audi 1 2001 283183 23230 29821 C:\img\1.jpg wowie
+BMW 320d 2013 89218 73518 1000000 C:\img\bmwf30.jpg Максимальная комплектация, 1 владелец
+Audi a1 2010 89121 90209 823082 C:\Users\coolg\OneDrive\Pictures\unnamed.jpg good car
+Mercedes e200 2010 27311 21313 31321 C:\Users\coolg\OneDrive\Pictures\unnamed.jpg very good well done
+Audi 100 1988 123 213 23213 C:\img\bmwf30.jpg please buy

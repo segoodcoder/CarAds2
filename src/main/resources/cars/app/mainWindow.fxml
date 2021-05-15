@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cars.app.loading.Controller">
+     <Button fx:id="add" layoutX="46.0" layoutY="121.0" onAction="#startAddCarWindow" prefHeight="25.0" prefWidth="221.0" text="Добавить объявление" />
+     <Button fx:id="list" layoutX="46.0" layoutY="187.0" onAction="#startListCarWindow" prefHeight="25.0" prefWidth="221.0" text="Посмотреть объявления" />
+     <Label contentDisplay="BOTTOM" layoutX="49.0" layoutY="32.0" text="Добро пожаловать на наш сайт!">
+      <font>
+         <Font size="30.0" />
+      </font>
+     </Label>
+   <ImageView fitHeight="177.0" fitWidth="231.0" layoutX="311.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@1.jpg" />
+      </image>
+   </ImageView>
+   <Label fx:id="l" layoutX="46.0" layoutY="269.0" prefHeight="62.0" prefWidth="204.0" text="Чтобы посмотреть свое объявление, перезапустите программу после добавления" wrapText="true" />
+</AnchorPane>
