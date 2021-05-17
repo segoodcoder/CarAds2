@@ -14,8 +14,18 @@ public class Car {
     private final String briefInfo;
 
     @Override
+    public int hashCode() {
+        int result = 31;
+        result *= brand.hashCode();
+        result *= model.hashCode();
+        result *= mileage.hashCode();
+        return result;
+    }
+
+
+    @Override
     public String toString() {
-        return brand + " " + model + " " + year + " " + phone + " " + mileage + " " + price + " " + image.toString() + " " + briefInfo;
+        return hashCode() + "//" + brand + "//" + model + "//" + year + "//" + phone + "//" + mileage + "//" + price + "//" + image.toString() + "//" + briefInfo;
     }
 
     public String getBrand() {

@@ -18,14 +18,32 @@ import java.util.Optional;
 public class MainWindow extends Application {
 
 
+    public static String getUSER() {
+        return USER;
+    }
+
+    public static void setUSER(String USER) {
+        MainWindow.USER = USER;
+    }
+
+    public static String USER;
 
     public static void main(String[] args) {
         MainWindow.launch();
     }
 
+    public static Stage getpStage() {
+        return pStage;
+    }
 
-    @FXML
-    public static Label l;
+    public static void setpStage(Stage pStage) {
+        MainWindow.pStage = pStage;
+    }
+
+
+    private static Stage pStage;
+
+
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -34,6 +52,7 @@ public class MainWindow extends Application {
         URL url = getClass().getResource("/cars/app/mainWindow.fxml");
         loader.setLocation(url);
         Pane root = loader.load();
+
 
         Hyperlink vk = new Hyperlink("Created by Georgy");
         vk.setLayoutX(46);
@@ -50,7 +69,10 @@ public class MainWindow extends Application {
         Scene mainScene = new Scene(root);
 
         stage.setScene(mainScene);
+        stage.setTitle("Добро пожаловать!");
+        setpStage(stage);
         stage.show();
+
 
         stage.setOnCloseRequest( event ->
         {

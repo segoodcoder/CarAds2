@@ -2,18 +2,27 @@ package cars.app.loading;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import cars.app.logic.*;
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Map;
 
+import static cars.app.loading.MainWindow.USER;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
 
@@ -57,10 +66,17 @@ public class ControllerAdd {
 
     @FXML
     public void closeWindowAdd (ActionEvent event) throws IOException {
-        Stage stage = (Stage) close.getScene().getWindow();
-        stage.close();
-        MainWindow mw = new MainWindow();
-        mw.start(new Stage());
+        Stage stage = MainWindow.getpStage();
+        MarketPlace.save();
+        FXMLLoader loader = new FXMLLoader();
+        URL url = getClass().getResource("/cars/app/mainWindow.fxml");
+        loader.setLocation(url);
+        Pane root = loader.load();
+        root.getChildren().add(new Label(USER));
+        Scene sc = new Scene(root);
+        stage.setScene(sc);
+        stage.show();
+
     }
 
     @FXML
@@ -97,7 +113,11 @@ public class ControllerAdd {
             (Integer.parseInt(yearOfCar) >= 1900 ||
             Integer.parseInt(yearOfCar) <= 2021) && Integer.parseInt(priceOfCar) >= 0 &&
             Integer.parseInt(mileageOfCar) >= 0 && Integer.parseInt(phoneOfOwner) > 0) {
+
                 MarketPlace.addNewAd(myCar);
+                MarketPlace.updateUserToAdvert(myCar);
+                MarketPlace.saveCarsAndUsers();
+
                 brand.setValue("Марка");
                 fieldModel.clear();
                 fieldYear.clear();
@@ -120,7 +140,7 @@ public class ControllerAdd {
             }
 
         }
-        catch (NumberFormatException n) {
+        catch (NumberFormatException | IOException n) {
             label.setText("Пробег, цена, телефон, год - целые числа! Заполните поля или исправьте значения");
             label.setTextFill(RED);
         }

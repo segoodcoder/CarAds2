@@ -3,15 +3,20 @@ package cars.app.logic;
 import javafx.scene.control.Label;
 import cars.app.loading.ControllerAdd;
 import cars.app.loading.MainWindow;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
+import static cars.app.loading.MainWindow.USER;
 import static javafx.scene.paint.Color.RED;
 
 public class MarketPlace {
 
-    private static final LinkedList<Car> listOfCars = new LinkedList<Car>();
+    private static final Map<Integer, Car> listOfCars = new HashMap<>();
     private static MarketPlace INSTANCE;
 
     public static MarketPlace getInstance() {
@@ -21,45 +26,112 @@ public class MarketPlace {
         return INSTANCE;
     }
 
-    public static LinkedList<Car> getListOfCars() {
+    public static Map<String, ArrayList<Integer>> getUserToAdvert() {
+        return userToAdvert;
+    }
+
+    public static Map<String, ArrayList<Integer>> userToAdvert = new HashMap<>();
+
+    public static void updateUserToAdvert(Car car) {
+        if (userToAdvert.containsKey(USER)) {
+            ArrayList<Integer> ll = userToAdvert.get(USER);
+            ll.add(car.hashCode());
+            userToAdvert.put(MainWindow.getUSER(), ll);
+        }
+        else {
+            ArrayList<Integer> ll1 = new ArrayList<>();
+            ll1.add(car.hashCode());
+            userToAdvert.put(USER, ll1);
+        }
+    }
+
+    public static void loadUserToAdvert() throws FileNotFoundException {
+        FileReader r = new FileReader("src//main//java//cars//app//cache//cacheAds.txt");
+        BufferedReader br = new BufferedReader(r);
+        try {
+            try {
+                String line = br.readLine();
+                while (!line.equals("")) {
+                    String[] m = line.split("//");
+                    String[] l = m[1].split(" ");
+                    ArrayList<Integer> list = new ArrayList<>();
+                    for (String elem : l) {
+                        list.add(Integer.valueOf(elem));
+                    }
+                    userToAdvert.put(m[0], list);
+                    line = br.readLine();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (NullPointerException ignored) {
+
+        }
+    }
+
+    public static Map<Integer, Car> getListOfCars() {
         return listOfCars;
     }
 
-    public static LinkedList<Car> loadListOfCars() throws IOException {
+    public static Map<Integer, Car> loadListOfCars() throws IOException {
         try {
-            LinkedList<Car> temp = new LinkedList<Car>();
+            Map<Integer, Car> temp = new HashMap<>();
             Reader r = new FileReader("src//main//java//cars//app//cache//cache.txt");
             BufferedReader br = new BufferedReader(r);
             String s = br.readLine();
             while (!s.equals("")) {
-                String[] m = s.split(" ");
-                Car car = new Car(m[0], m[1], m[2], m[3], m[4], m[5], new File(m[6]), m[7]);
-                temp.add(car);
+                String[] m = s.split(">>");
+                Integer hash = Integer.valueOf(m[0]);
+                String[] l = m[1].split("//");
+                Car car = new Car(l[1], l[2], l[3], l[4], l[5], l[6], new File(l[7]), l[8]);
+                temp.put(hash, car);
                 s = br.readLine();
                 if (s == null) break;
             }
             return temp;
-        } catch (NullPointerException n) {
-            Label noAds = new Label("Объявлений пока нет!");
-            noAds.setTextFill(RED);
-            MainWindow.l = noAds ;
+        } catch (NullPointerException ignored) {
             return null;
         }
     }
 
     public static void save() throws IOException {
-        FileWriter fw = new FileWriter("src//main//java//cars//app//cache//cache.txt", true);
-        for (Car car: listOfCars) {
-            fw.write(car.toString());
+        FileWriter fw = new FileWriter("src//main//java//cars//app//cache//cache.txt", false);
+        for (Map.Entry<Integer, Car> entry : listOfCars.entrySet()) {
+            fw.write(entry.getKey().toString());
+            fw.write(">>");
+            fw.write(entry.getValue().toString());
             fw.write('\n');
             fw.flush();
         }
+        fw.close();
+
     }
 
     public static void addNewAd (Car car) {
-        listOfCars.add(car);
+        listOfCars.put(car.hashCode(), car);
     }
 
     private MarketPlace() { }
 
+    public static void saveCarsAndUsers() throws IOException {
+        FileWriter fw2 = new FileWriter("src//main//java//cars//app//cache//cacheAds.txt", false);
+        for (Map.Entry<String, ArrayList<Integer>> entry : MarketPlace.getUserToAdvert().entrySet()) {
+            fw2.write(entry.getKey());
+            fw2.write("//");
+            ArrayList<Integer> list = entry.getValue();
+            for (int i = 0; i < list.size(); i ++) {
+                if (i != list.size() - 1) {
+                    fw2.write(list.get(i).toString());
+                    fw2.write(" ");
+                }
+                else {
+                    fw2.write(list.get(i).toString());
+                }
+            }
+            fw2.write("\n");
+            fw2.flush();
+        }
+        fw2.close();
+    }
 }
