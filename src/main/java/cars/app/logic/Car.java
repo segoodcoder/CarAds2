@@ -24,6 +24,20 @@ public class Car {
 
 
     @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        else {
+            if (!(o instanceof Car)) {
+                return false;
+            }
+            Car car = (Car) o;
+            return car.brand.equals(((Car) o).brand) && car.model.equals(((Car) o).model) &&
+            car.mileage.equals(((Car) o).mileage) && car.phone.equals(((Car) o).phone) &&
+            car.price.equals(((Car) o).price);
+        }
+    }
+
+    @Override
     public String toString() {
         return hashCode() + "//" + brand + "//" + model + "//" + year + "//" + phone + "//" + mileage + "//" + price + "//" + image.toString() + "//" + briefInfo;
     }

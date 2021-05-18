@@ -15,12 +15,8 @@ import cars.app.logic.*;
 
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Map;
 
 import static cars.app.loading.MainWindow.USER;
 import static javafx.scene.paint.Color.GREEN;
@@ -67,7 +63,7 @@ public class ControllerAdd {
     @FXML
     public void closeWindowAdd (ActionEvent event) throws IOException {
         Stage stage = MainWindow.getpStage();
-        MarketPlace.save();
+        MarketPlace.saveCarsFalse();
         FXMLLoader loader = new FXMLLoader();
         URL url = getClass().getResource("/cars/app/mainWindow.fxml");
         loader.setLocation(url);
@@ -110,9 +106,9 @@ public class ControllerAdd {
 
             Car myCar = new Car(brandOfCar, modelOfCar, yearOfCar, phoneOfOwner, mileageOfCar, priceOfCar, img, bi);
             if (!brandOfCar.equals("") && !brandOfCar.equals("Марка") && !modelOfCar.equals("") &&
-            (Integer.parseInt(yearOfCar) >= 1900 ||
+            (Integer.parseInt(yearOfCar) >= 1900 &&
             Integer.parseInt(yearOfCar) <= 2021) && Integer.parseInt(priceOfCar) >= 0 &&
-            Integer.parseInt(mileageOfCar) >= 0 && Integer.parseInt(phoneOfOwner) > 0) {
+            Integer.parseInt(mileageOfCar) >= 0 && Long.parseLong(phoneOfOwner) >= 89000000000L && Long.parseLong(phoneOfOwner) <= 89999999999L) {
 
                 MarketPlace.addNewAd(myCar);
                 MarketPlace.updateUserToAdvert(myCar);
@@ -140,7 +136,7 @@ public class ControllerAdd {
             }
 
         }
-        catch (NumberFormatException | IOException n) {
+        catch (NumberFormatException | IOException n/*| IOException n */) {
             label.setText("Пробег, цена, телефон, год - целые числа! Заполните поля или исправьте значения");
             label.setTextFill(RED);
         }

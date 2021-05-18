@@ -3,7 +3,6 @@ package cars.app.loading;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -78,22 +77,12 @@ public class MainWindow extends Application {
         {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Выход из приложения");
-            alert.setHeaderText("Сохранить данные?");
-            alert.setContentText("При последующей загрузке объявления сохранятся");
+            alert.setHeaderText("Вы хотите выйти?");
             ButtonType buttonTypeSave = new ButtonType("Да");
             ButtonType buttonTypeCancel = new ButtonType("Отмена", ButtonBar.ButtonData.CANCEL_CLOSE);
-            ButtonType buttonTypeNo = new ButtonType("Нет");
-            alert.getButtonTypes().setAll(buttonTypeSave, buttonTypeNo,buttonTypeCancel);
+            alert.getButtonTypes().setAll(buttonTypeSave,buttonTypeCancel);
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == buttonTypeCancel) event.consume();
-            else if (result.get() == buttonTypeSave) {
-                try {
-                    MarketPlace.save();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
         });
     }
 

@@ -1,9 +1,6 @@
 package cars.app.logic;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +19,11 @@ public class BaseOfUsers {
         try {
             while (!line.equals("")) {
                 String[] m = line.split("//");
-                getListOfUsers().put(m[0], m[1]);
+                Map<String, String> tmp = BaseOfUsers.getListOfUsers();
+
+                tmp.put(m[0], m[1]);
+                BaseOfUsers.setListOfUsers(tmp);
+
                 line = br.readLine();
             }
         } catch (NullPointerException ignored) {
@@ -30,7 +31,21 @@ public class BaseOfUsers {
         }
     }
 
-    private static final Map <String, String> listOfUsers = new HashMap<>();
+    public static void listOfUsersToMemory() throws IOException {
+        FileWriter fw = new FileWriter("src/main/java/cars/app/cache/cacheUsers.txt", false);
+        Map<String, String> temp = BaseOfUsers.getListOfUsers();
+        for (Map.Entry<String, String> user : temp.entrySet()) {
+            fw.write(user.getKey() + "//" + user.getValue());
+            fw.write("\n");
+        }
+        fw.close();
+    }
+
+    public static void setListOfUsers(Map<String, String> listOfUsers) {
+        BaseOfUsers.listOfUsers = listOfUsers;
+    }
+
+    private static Map <String, String> listOfUsers = new HashMap<>();
     private static BaseOfUsers INSTANCE;
 
     public static BaseOfUsers getInstance() {

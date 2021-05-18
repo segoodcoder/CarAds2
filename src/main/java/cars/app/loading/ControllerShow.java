@@ -53,7 +53,8 @@ public class ControllerShow {
     public void initialize() throws IOException {
         try {
             final VBox fp = new VBox();
-            Map<Integer, Car> ll = MarketPlace.loadListOfCars();
+            MarketPlace.loadListOfCars();
+            Map<Integer, Car> ll = MarketPlace.getListOfCars();
             for (Map.Entry<Integer, Car> entry : ll.entrySet()) {
 
                 Car car = entry.getValue();

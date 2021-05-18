@@ -1,16 +1,14 @@
 package cars.app.loading;
 
 import cars.app.logic.BaseOfUsers;
+import cars.app.logic.Car;
 import cars.app.logic.User;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 import java.io.*;
 import java.net.URL;
@@ -22,7 +20,6 @@ import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.RED;
 
 import cars.app.logic.MarketPlace;
-import javafx.stage.WindowEvent;
 
 public class ControllerAcc {
     @FXML
@@ -64,6 +61,8 @@ public class ControllerAcc {
         Stage p = MainWindow.getpStage();
         p.setScene(sc);
 
+        BaseOfUsers.listOfUsersToMemory();
+
         p.show();
     }
 
@@ -73,37 +72,26 @@ public class ControllerAcc {
         String newPassword = password.getText();
         User newUser = new User(newLogin, newPassword);
 
-        FileReader fr = new FileReader("src/main/java/cars/app/cache/cacheUsers.txt");
-        FileWriter fw = new FileWriter("src/main/java/cars/app/cache/cacheUsers.txt", true);
-        BufferedReader br = new BufferedReader(fr);
-        String line = br.readLine();
+        BaseOfUsers.loadListOfUsers();
+        Map<String, String> m = BaseOfUsers.getListOfUsers();
 
-        try {
-            while (!line.equals("")) {
-                if (!line.equals(newLogin + "//" + newPassword)) {
-                    line = br.readLine();
-                } else {
-                    login.clear();
-                    password.clear();
-                    lc.setText("Такой пользователь уже существует!");
-                    lc.setTextFill(RED);
-                    lc.setWrapText(true);
-                    break;
-                }
-
-            }
-        } catch (NullPointerException ignored) {
-
+        if (m.containsKey(newLogin)) {
+            login.clear();
+            password.clear();
+            lc.setText("Такой пользователь уже существует!");
+            lc.setTextFill(RED);
         }
-        BaseOfUsers.addNewUser(newUser);
-        lc.setText("Вы успешно зарегистрированы!");
-        lc.setTextFill(GREEN);
-        br.close();
-        fr.close();
 
-        fw.write(newLogin + "//" + newPassword);
-        fw.write("\n");
-        fw.close();
+        else {
+            m.put(newLogin, newPassword);
+            BaseOfUsers.setListOfUsers(m);
+            login.clear();
+            password.clear();
+            lc.setText("Вы успешно зарегистрированы!");
+            lc.setTextFill(GREEN);
+        }
+        lc.setWrapText(true);
+
     }
 
     public void logInto() throws IOException {
@@ -144,18 +132,31 @@ public class ControllerAcc {
     public void removeFromBase() throws IOException {
 
         MarketPlace.loadUserToAdvert();
+        MarketPlace.loadListOfCars();
+
+        Map<Integer, Car> tempCars = MarketPlace.getListOfCars();
+        Map<String, ArrayList<Integer>> tempUsers = MarketPlace.getUserToAdvert();
 
         String user = MainWindow.getUSER();
         Integer id = Integer.valueOf(forDelete.getText());
-            if (MarketPlace.getUserToAdvert().get(user).contains(id)) {
-                MarketPlace.getUserToAdvert().get(user).remove(id);
-                MarketPlace.getListOfCars().remove(id);
+            if (tempUsers.get(user).contains(id)) {
+
+                ArrayList<Integer> tempList = tempUsers.get(user);
+
+                tempList.remove(id);
+                tempUsers.put(user, tempList);
+                tempCars.remove(id);
+
+                MarketPlace.setListOfCars(tempCars);
+                MarketPlace.setUserToAdvert(tempUsers);
+
+                MarketPlace.saveCarsFalse();
             }
             else {
                 bigLabel.setText("Похоже, это не ваше объявление!");
                 bigLabel.setTextFill(RED);
             }
         forDelete.clear();
-        MarketPlace.save();
+
     }
 }

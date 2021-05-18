@@ -16,7 +16,14 @@ import static javafx.scene.paint.Color.RED;
 
 public class MarketPlace {
 
-    private static final Map<Integer, Car> listOfCars = new HashMap<>();
+
+    public static void setListOfCars(Map<Integer, Car> listOfCars) {
+        MarketPlace.listOfCars = listOfCars;
+    }
+
+    private static Map<Integer, Car> listOfCars = new HashMap<>();
+
+
     private static MarketPlace INSTANCE;
 
     public static MarketPlace getInstance() {
@@ -28,6 +35,10 @@ public class MarketPlace {
 
     public static Map<String, ArrayList<Integer>> getUserToAdvert() {
         return userToAdvert;
+    }
+
+    public static void setUserToAdvert(Map<String, ArrayList<Integer>> userToAdvert) {
+        MarketPlace.userToAdvert = userToAdvert;
     }
 
     public static Map<String, ArrayList<Integer>> userToAdvert = new HashMap<>();
@@ -45,8 +56,20 @@ public class MarketPlace {
         }
     }
 
+    public static void setPathToCacheAds(String pathToCacheAds) {
+        MarketPlace.pathToCacheAds = pathToCacheAds;
+    }
+
+    private static String pathToCacheAds = "src//main//java//cars//app//cache//cacheAds.txt";
+
+    public static void setPathToCash(String pathToCash) {
+        MarketPlace.pathToCash = pathToCash;
+    }
+
+    private static String pathToCash = "src//main//java//cars//app//cache//cache.txt";
+
     public static void loadUserToAdvert() throws FileNotFoundException {
-        FileReader r = new FileReader("src//main//java//cars//app//cache//cacheAds.txt");
+        FileReader r = new FileReader(pathToCacheAds);
         BufferedReader br = new BufferedReader(r);
         try {
             try {
@@ -58,7 +81,11 @@ public class MarketPlace {
                     for (String elem : l) {
                         list.add(Integer.valueOf(elem));
                     }
-                    userToAdvert.put(m[0], list);
+
+                    Map<String, ArrayList<Integer>> m1 = MarketPlace.getUserToAdvert();
+                    m1.put(m[0], list);
+                    MarketPlace.setUserToAdvert(m1);
+
                     line = br.readLine();
                 }
 
@@ -74,10 +101,10 @@ public class MarketPlace {
         return listOfCars;
     }
 
-    public static Map<Integer, Car> loadListOfCars() throws IOException {
+    public static void loadListOfCars() throws IOException {
         try {
             Map<Integer, Car> temp = new HashMap<>();
-            Reader r = new FileReader("src//main//java//cars//app//cache//cache.txt");
+            Reader r = new FileReader(pathToCash);
             BufferedReader br = new BufferedReader(r);
             String s = br.readLine();
             while (!s.equals("")) {
@@ -89,14 +116,15 @@ public class MarketPlace {
                 s = br.readLine();
                 if (s == null) break;
             }
-            return temp;
+            MarketPlace.setListOfCars(temp);
         } catch (NullPointerException ignored) {
-            return null;
+
         }
     }
 
-    public static void save() throws IOException {
-        FileWriter fw = new FileWriter("src//main//java//cars//app//cache//cache.txt", false);
+
+    public static void saveCarsFalse() throws IOException {
+        FileWriter fw = new FileWriter(pathToCash, false);
         for (Map.Entry<Integer, Car> entry : listOfCars.entrySet()) {
             fw.write(entry.getKey().toString());
             fw.write(">>");
@@ -115,7 +143,7 @@ public class MarketPlace {
     private MarketPlace() { }
 
     public static void saveCarsAndUsers() throws IOException {
-        FileWriter fw2 = new FileWriter("src//main//java//cars//app//cache//cacheAds.txt", false);
+        FileWriter fw2 = new FileWriter(pathToCacheAds, false);
         for (Map.Entry<String, ArrayList<Integer>> entry : MarketPlace.getUserToAdvert().entrySet()) {
             fw2.write(entry.getKey());
             fw2.write("//");
