@@ -17,6 +17,9 @@ import cars.app.logic.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static cars.app.loading.MainWindow.USER;
 import static javafx.scene.paint.Color.GREEN;
@@ -80,10 +83,13 @@ public class ControllerAdd {
 
     }
 
-    public void addPhotograph() {
+    public void addPhotograph() throws IOException {
         FileChooser fc = new FileChooser();
         File f = fc.showOpenDialog(new Stage());
-        setImage(f);
+
+        moveFile(f.getPath(), "cache/photos/" + f.getName());
+        File pict = new File("cache/photos/" + f.getName());
+        setImage(pict);
     }
 
     @FXML
@@ -141,4 +147,15 @@ public class ControllerAdd {
             label.setTextFill(RED);
         }
     }
+
+    private static void moveFile(String src, String dest ) {
+        Path result = null;
+        try {
+            result =  Files.move(Paths.get(src), Paths.get(dest));
+        } catch (IOException e) {
+            System.out.println("Exception while moving file: " + e.getMessage());
+        }
+    }
 }
+
+

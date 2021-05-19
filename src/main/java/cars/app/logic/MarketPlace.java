@@ -60,13 +60,13 @@ public class MarketPlace {
         MarketPlace.pathToCacheAds = pathToCacheAds;
     }
 
-    private static String pathToCacheAds = "src//main//java//cars//app//cache//cacheAds.txt";
+    private static String pathToCacheAds = "cache/cacheAds.txt";
 
     public static void setPathToCash(String pathToCash) {
         MarketPlace.pathToCash = pathToCash;
     }
 
-    private static String pathToCash = "src//main//java//cars//app//cache//cache.txt";
+    private static String pathToCash = "cache/cache.txt";
 
     public static void loadUserToAdvert() throws FileNotFoundException {
         FileReader r = new FileReader(pathToCacheAds);

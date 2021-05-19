@@ -13,7 +13,7 @@ public class BaseOfUsers {
 
     public static void loadListOfUsers() throws IOException {
 
-        FileReader r = new FileReader("src/main/java/cars/app/cache/cacheUsers.txt");
+        FileReader r = new FileReader("cache/cacheUsers.txt");
         BufferedReader br = new BufferedReader(r);
         String line = br.readLine();
         try {
@@ -32,7 +32,7 @@ public class BaseOfUsers {
     }
 
     public static void listOfUsersToMemory() throws IOException {
-        FileWriter fw = new FileWriter("src/main/java/cars/app/cache/cacheUsers.txt", false);
+        FileWriter fw = new FileWriter("cache/cacheUsers.txt", false);
         Map<String, String> temp = BaseOfUsers.getListOfUsers();
         for (Map.Entry<String, String> user : temp.entrySet()) {
             fw.write(user.getKey() + "//" + user.getValue());

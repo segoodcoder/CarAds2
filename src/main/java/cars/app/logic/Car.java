@@ -39,7 +39,7 @@ public class Car {
 
     @Override
     public String toString() {
-        return hashCode() + "//" + brand + "//" + model + "//" + year + "//" + phone + "//" + mileage + "//" + price + "//" + image.toString() + "//" + briefInfo;
+        return hashCode() + "//" + brand + "//" + model + "//" + year + "//" + phone + "//" + mileage + "//" + price + "//" + image.getPath() + "//" + briefInfo;
     }
 
     public String getBrand() {
