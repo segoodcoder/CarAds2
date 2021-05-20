@@ -46,8 +46,7 @@ public class Controller {
 
                 stage.setScene(new Scene(root));
                 stage.show();
-            }  //                lbl.setText("Сначала зарегистрируйтесь или войдите!");
-            //                lbl.setTextFill(RED);
+            }
 
         } catch (NullPointerException ignored) {
             lbl.setText("Сначала зарегистрируйтесь или войдите!");

@@ -115,7 +115,6 @@ public class ControllerAdd {
 
                 MarketPlace.addNewAd(myCar);
                 MarketPlace.updateUserToAdvert(myCar);
-                MarketPlace.saveCarsAndUsers();
 
                 brand.setValue("Марка");
                 fieldModel.clear();
@@ -139,7 +138,7 @@ public class ControllerAdd {
             }
 
         }
-        catch (NumberFormatException | IOException n/*| IOException n */) {
+        catch (NumberFormatException n) {
             label.setText("Пробег, цена, телефон, год - целые числа! Заполните поля или исправьте значения");
             label.setTextFill(RED);
         }

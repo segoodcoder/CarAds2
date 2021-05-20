@@ -1,1 +1,2 @@
-61764904>>61764904//BMW//320//2020//89990950957//1289//3000000//cache\photos\bmwf30.jpg//new good car city: Moscow
+0>>0//Mercedes//200//2000//89000000000//0//0//cache\photos\porsche-model.png//user6 test
+201435289>>201435289//Audi//100//1988//89765677878//777231//50000//cache\photos\Volkswagen_Polo_Sedan_2.jpg//хлам тот еще user1

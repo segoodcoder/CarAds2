@@ -41,18 +41,21 @@ public class MarketPlace {
         MarketPlace.userToAdvert = userToAdvert;
     }
 
-    public static Map<String, ArrayList<Integer>> userToAdvert = new HashMap<>();
+    private static Map<String, ArrayList<Integer>> userToAdvert = new HashMap<>();
 
     public static void updateUserToAdvert(Car car) {
-        if (userToAdvert.containsKey(USER)) {
-            ArrayList<Integer> ll = userToAdvert.get(USER);
+        Map<String, ArrayList<Integer>> m = MarketPlace.getUserToAdvert();
+        if (m.containsKey(USER)) {
+            ArrayList<Integer> ll = m.get(USER);
             ll.add(car.hashCode());
-            userToAdvert.put(MainWindow.getUSER(), ll);
+            m.put(MainWindow.getUSER(), ll);
+            MarketPlace.setUserToAdvert(m);
         }
         else {
             ArrayList<Integer> ll1 = new ArrayList<>();
             ll1.add(car.hashCode());
-            userToAdvert.put(USER, ll1);
+            m.put(USER, ll1);
+            MarketPlace.setUserToAdvert(m);
         }
     }
 

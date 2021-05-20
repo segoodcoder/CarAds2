@@ -1,5 +1,6 @@
 package cars.app.loading;
 
+import cars.app.logic.BaseOfUsers;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -52,6 +53,9 @@ public class MainWindow extends Application {
         loader.setLocation(url);
         Pane root = loader.load();
 
+        MarketPlace.loadListOfCars();
+        MarketPlace.loadUserToAdvert();
+        BaseOfUsers.loadListOfUsers();
 
         Hyperlink vk = new Hyperlink("Created by Georgy");
         vk.setLayoutX(46);
@@ -83,6 +87,13 @@ public class MainWindow extends Application {
             alert.getButtonTypes().setAll(buttonTypeSave,buttonTypeCancel);
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == buttonTypeCancel) event.consume();
+            if (result.get() == buttonTypeSave) {
+                try {
+                    MarketPlace.saveCarsAndUsers();
+                    MarketPlace.saveCarsFalse();
+                    BaseOfUsers.listOfUsersToMemory();
+                } catch (IOException ignored) {}
+            }
         });
     }
 
