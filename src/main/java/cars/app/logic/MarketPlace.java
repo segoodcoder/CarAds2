@@ -1,14 +1,10 @@
 package cars.app.logic;
 
-import javafx.scene.control.Label;
-import cars.app.loading.ControllerAdd;
 import cars.app.loading.MainWindow;
-import javafx.util.converter.IntegerStringConverter;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 import static cars.app.loading.MainWindow.USER;
@@ -48,7 +44,7 @@ public class MarketPlace {
         if (m.containsKey(USER)) {
             ArrayList<Integer> ll = m.get(USER);
             ll.add(car.hashCode());
-            m.put(MainWindow.getUSER(), ll);
+            m.put(MainWindow.getUser(), ll);
             MarketPlace.setUserToAdvert(m);
         }
         else {

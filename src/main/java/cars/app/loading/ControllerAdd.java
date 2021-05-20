@@ -101,10 +101,10 @@ public class ControllerAdd {
         try {
             String brandOfCar = brand.getValue();
             String modelOfCar = fieldModel.getText();
-            Integer yearOfCar = Integer.parseInt(fieldYear.getText());
-            Long phoneOfOwner = Long.parseLong(fieldPhone.getText());
-            Integer mileageOfCar = Integer.parseInt(fieldMileage.getText());
-            Integer priceOfCar = Integer.parseInt(fieldPrice.getText());
+            int yearOfCar = Integer.parseInt(fieldYear.getText());
+            long phoneOfOwner = Long.parseLong(fieldPhone.getText());
+            int mileageOfCar = Integer.parseInt(fieldMileage.getText());
+            int priceOfCar = Integer.parseInt(fieldPrice.getText());
             File img = getImage();
             String bi = briefInfo.getText();
 
@@ -147,7 +147,7 @@ public class ControllerAdd {
     private static void moveFile(String src, String dest ) {
         Path result = null;
         try {
-            result =  Files.move(Paths.get(src), Paths.get(dest));
+            result =  Files.copy(Paths.get(src), Paths.get(dest));
         } catch (IOException e) {
             System.out.println("Exception while moving file: " + e.getMessage());
         }

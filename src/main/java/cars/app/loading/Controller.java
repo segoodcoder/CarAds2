@@ -1,7 +1,5 @@
 package cars.app.loading;
 
-import cars.app.logic.BaseOfUsers;
-import cars.app.logic.MarketPlace;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,12 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import cars.app.logic.Car;
-import javafx.stage.Window;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Map;
 
 import static javafx.scene.paint.Color.RED;
 
@@ -35,7 +30,7 @@ public class Controller {
 
     public void startAddCarWindow() throws NullPointerException, IOException {
         try {
-            if (!MainWindow.getUSER().equals("")) {
+            if (!MainWindow.getUser().equals("")) {
                 FXMLLoader loader = new FXMLLoader();
                 URL url = getClass().getResource("/cars/app/addCarWindow.fxml");
                 loader.setLocation(url);

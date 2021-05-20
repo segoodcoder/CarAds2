@@ -70,26 +70,30 @@ public class ControllerAcc {
         String newLogin = login.getText();
         String newPassword = password.getText();
 
-        BaseOfUsers.loadListOfUsers();
-        Map<String, String> m = BaseOfUsers.getListOfUsers();
-
-        if (m.containsKey(newLogin)) {
-            login.clear();
-            password.clear();
-            lc.setText("Такой пользователь уже существует!");
+        if (newLogin.equals("") || newPassword.equals("")) {
+            lc.setText("Имя и пароль не должны быть пустыми");
             lc.setTextFill(RED);
         }
 
         else {
-            m.put(newLogin, newPassword);
-            BaseOfUsers.setListOfUsers(m);
-            login.clear();
-            password.clear();
-            lc.setText("Вы успешно зарегистрированы!");
-            lc.setTextFill(GREEN);
+            BaseOfUsers.loadListOfUsers();
+            Map<String, String> m = BaseOfUsers.getListOfUsers();
+
+            if (m.containsKey(newLogin)) {
+                login.clear();
+                password.clear();
+                lc.setText("Такой пользователь уже существует!");
+                lc.setTextFill(RED);
+            } else {
+                m.put(newLogin, newPassword);
+                BaseOfUsers.setListOfUsers(m);
+                login.clear();
+                password.clear();
+                lc.setText("Вы успешно зарегистрированы!");
+                lc.setTextFill(GREEN);
+            }
         }
         lc.setWrapText(true);
-
     }
 
     public void logInto() throws IOException {
@@ -105,7 +109,7 @@ public class ControllerAcc {
                 try {
                     lc.setText("Вы вошли как " + username);
                     lc.setTextFill(GREEN);
-                    MainWindow.setUSER(username);
+                    MainWindow.setUser(username);
                     MarketPlace.loadUserToAdvert();
                     Map<String, ArrayList<Integer>> m = MarketPlace.getUserToAdvert();
                     ArrayList<Integer> l = m.get(username);
@@ -135,26 +139,35 @@ public class ControllerAcc {
         Map<Integer, Car> tempCars = MarketPlace.getListOfCars();
         Map<String, ArrayList<Integer>> tempUsers = MarketPlace.getUserToAdvert();
 
-        String user = MainWindow.getUSER();
-        Integer id = Integer.valueOf(forDelete.getText());
-        ArrayList<Integer> myCars = tempUsers.get(user);
+        String user = MainWindow.getUser();
+        try {
+            Integer id = Integer.valueOf(forDelete.getText());
 
-            if (myCars.contains(id)) {
+            ArrayList<Integer> myCars = tempUsers.get(user);
+            try {
+                if (myCars.contains(id)) {
+                    myCars.remove(id);
+                    if (!myCars.isEmpty()) {
+                        tempUsers.put(user, myCars);
+                    } else {
+                        tempUsers.remove(user);
+                    }
+                    tempCars.remove(id);
 
-                myCars.remove(id);
-                tempUsers.put(user, myCars);
-                tempCars.remove(id);
+                    MarketPlace.setListOfCars(tempCars);
+                    MarketPlace.setUserToAdvert(tempUsers);
 
-                MarketPlace.setListOfCars(tempCars);
-                MarketPlace.setUserToAdvert(tempUsers);
-
-                MarketPlace.saveCarsFalse();
-            }
-            else {
-                bigLabel.setText("Похоже, это не ваше объявление!");
+                    MarketPlace.saveCarsFalse();
+                }
+            } catch (Exception e) {
+                bigLabel.setText("Объявление не существует или Вам не принадлежит!");
                 bigLabel.setTextFill(RED);
             }
-        forDelete.clear();
-
+        } catch (NumberFormatException n) {
+            bigLabel.setText("Введено некорректное значение (пустое или не целое число)!");
+            bigLabel.setTextFill(RED);
+        }
     }
+
 }
+

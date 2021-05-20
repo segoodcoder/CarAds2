@@ -1,6 +1,7 @@
 package cars.app.logic;
 
 import java.io.File;
+import java.util.Objects;
 
 public class Car {
 
@@ -15,11 +16,9 @@ public class Car {
 
     @Override
     public int hashCode() {
-        int result = 31;
-        result *= brand.hashCode();
-        result *= model.hashCode();
-        result *= mileage.hashCode();
-        return result;
+        int s = Objects.hash(brand, model, mileage);
+        if (s < 0) return -s;
+        else return s;
     }
 
 

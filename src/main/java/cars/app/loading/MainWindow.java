@@ -18,11 +18,11 @@ import java.util.Optional;
 public class MainWindow extends Application {
 
 
-    public static String getUSER() {
+    public static String getUser() {
         return USER;
     }
 
-    public static void setUSER(String USER) {
+    public static void setUser(String USER) {
         MainWindow.USER = USER;
     }
 
@@ -70,6 +70,9 @@ public class MainWindow extends Application {
         root.getChildren().addAll(vk);
 
         Scene mainScene = new Scene(root);
+
+        stage.setMinHeight(400);
+        stage.setMinWidth(600);
 
         stage.setScene(mainScene);
         stage.setTitle("Добро пожаловать!");

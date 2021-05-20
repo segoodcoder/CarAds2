@@ -21,7 +21,7 @@ public class MarketPlaceTest {
     @Test
     public void updateUserToAdvert() {
         String username = "user1";
-        MainWindow.setUSER(username);
+        MainWindow.setUser(username);
         Car car = new Car("Volvo", "V90", 2020, 2231L, 23123, 4000000,
                 new File("C:\\img\\90.jpg"), "good car");
         ArrayList<Integer> l = new ArrayList<>();
@@ -35,7 +35,7 @@ public class MarketPlaceTest {
     @Test
     public void loadUserToAdvert() throws IOException {
         String username = "user1";
-        MainWindow.setUSER(username);
+        MainWindow.setUser(username);
         MarketPlace.setPathToCacheAds("testing/forTest.txt");
         ArrayList<Integer> i = new ArrayList<>();
         i.add(982138231);
@@ -74,7 +74,7 @@ public class MarketPlaceTest {
         String pathExpected = "testing/forTest3Expected.txt";
         MarketPlace.setPathToCacheAds(path);
         String u = "user333";
-        MainWindow.setUSER(u);
+        MainWindow.setUser(u);
         Map<String, ArrayList<Integer>> m = new HashMap<>();
         ArrayList<Integer> r = new ArrayList<>();
         r.add(21332421);
