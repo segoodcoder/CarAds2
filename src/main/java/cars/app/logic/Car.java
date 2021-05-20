@@ -6,10 +6,10 @@ public class Car {
 
     private final String brand;
     private final String model;
-    private final String year;
-    private final String phone;
-    private final String mileage;
-    private final String price;
+    private final Integer year;
+    private final Long phone;
+    private final Integer mileage;
+    private final Integer price;
     private final File image;
     private final String briefInfo;
 
@@ -26,14 +26,15 @@ public class Car {
     @Override
     public boolean equals(Object o) {
         if (o == this) return true;
+        if (o == null) return false;
         else {
-            if (!(o instanceof Car)) {
+            if (o.getClass() != this.getClass()) {
                 return false;
             }
-            Car car = (Car) o;
-            return car.brand.equals(((Car) o).brand) && car.model.equals(((Car) o).model) &&
-            car.mileage.equals(((Car) o).mileage) && car.phone.equals(((Car) o).phone) &&
-            car.price.equals(((Car) o).price);
+            final Car car = (Car) o;
+            return this.brand.equals(car.brand) && this.model.equals(car.model) &&
+            this.mileage.equals(car.mileage) && this.phone.equals(car.phone) &&
+            this.price.equals(car.price);
         }
     }
 
@@ -50,19 +51,19 @@ public class Car {
         return model;
     }
 
-    public String getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public String getPhone() {
+    public Long getPhone() {
         return phone;
     }
 
-    public String getMileage() {
+    public Integer getMileage() {
         return mileage;
     }
 
-    public String getPrice(){
+    public Integer getPrice(){
         return price;
     }
 
@@ -73,7 +74,7 @@ public class Car {
     public String getBriefInfo() {
         return briefInfo;
     }
-    public Car(String brand, String model, String year, String phone, String mileage, String price, File image, String briefInfo) {
+    public Car(String brand, String model, int year, Long phone, int mileage, int price, File image, String briefInfo) {
         this.brand = brand;
         this.model = model;
         this.year = year;

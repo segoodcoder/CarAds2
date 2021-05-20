@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import static cars.app.loading.MainWindow.USER;
-import static javafx.scene.paint.Color.RED;
+
 
 public class MarketPlace {
 
@@ -79,7 +79,7 @@ public class MarketPlace {
                     String[] l = m[1].split(" ");
                     ArrayList<Integer> list = new ArrayList<>();
                     for (String elem : l) {
-                        list.add(Integer.valueOf(elem));
+                        list.add(Integer.parseInt(elem));
                     }
 
                     Map<String, ArrayList<Integer>> m1 = MarketPlace.getUserToAdvert();
@@ -111,7 +111,8 @@ public class MarketPlace {
                 String[] m = s.split(">>");
                 Integer hash = Integer.valueOf(m[0]);
                 String[] l = m[1].split("//");
-                Car car = new Car(l[1], l[2], l[3], l[4], l[5], l[6], new File(l[7]), l[8]);
+                Car car = new Car(l[1], l[2], Integer.parseInt(l[3]),
+                Long.parseLong(l[4]), Integer.parseInt(l[5]), Integer.parseInt(l[6]), new File(l[7]), l[8]);
                 temp.put(hash, car);
                 s = br.readLine();
                 if (s == null) break;
@@ -125,7 +126,8 @@ public class MarketPlace {
 
     public static void saveCarsFalse() throws IOException {
         FileWriter fw = new FileWriter(pathToCash, false);
-        for (Map.Entry<Integer, Car> entry : listOfCars.entrySet()) {
+        Map<Integer, Car> m = MarketPlace.getListOfCars();
+        for (Map.Entry<Integer, Car> entry : m.entrySet()) {
             fw.write(entry.getKey().toString());
             fw.write(">>");
             fw.write(entry.getValue().toString());
@@ -137,14 +139,17 @@ public class MarketPlace {
     }
 
     public static void addNewAd (Car car) {
-        listOfCars.put(car.hashCode(), car);
+        Map<Integer, Car> m = MarketPlace.getListOfCars();
+        m.put(car.hashCode(), car);
+        MarketPlace.setListOfCars(m);
     }
 
     private MarketPlace() { }
 
     public static void saveCarsAndUsers() throws IOException {
         FileWriter fw2 = new FileWriter(pathToCacheAds, false);
-        for (Map.Entry<String, ArrayList<Integer>> entry : MarketPlace.getUserToAdvert().entrySet()) {
+        Map<String, ArrayList<Integer>> m = MarketPlace.getUserToAdvert();
+        for (Map.Entry<String, ArrayList<Integer>> entry : m.entrySet()) {
             fw2.write(entry.getKey());
             fw2.write("//");
             ArrayList<Integer> list = entry.getValue();

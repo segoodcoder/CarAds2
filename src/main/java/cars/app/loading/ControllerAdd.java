@@ -42,13 +42,8 @@ public class ControllerAdd {
     @FXML
     private TextField fieldPrice;
 
-
     @FXML
     private Label label;
-    @FXML
-    private Button close;
-    @FXML
-    private Button addPhoto;
     @FXML
     private TextField briefInfo;
 
@@ -86,9 +81,12 @@ public class ControllerAdd {
     public void addPhotograph() throws IOException {
         FileChooser fc = new FileChooser();
         File f = fc.showOpenDialog(new Stage());
+        String basePath = f.getPath();
+        String name = f.getName();
 
-        moveFile(f.getPath(), "cache/photos/" + f.getName());
-        File pict = new File("cache/photos/" + f.getName());
+        moveFile(basePath, "cache/photos/" + name);
+
+        File pict = new File("cache/photos/" + name);
         setImage(pict);
     }
 
@@ -103,18 +101,17 @@ public class ControllerAdd {
         try {
             String brandOfCar = brand.getValue();
             String modelOfCar = fieldModel.getText();
-            String yearOfCar = fieldYear.getText();
-            String phoneOfOwner = fieldPhone.getText();
-            String mileageOfCar = fieldMileage.getText();
-            String priceOfCar = fieldPrice.getText();
+            Integer yearOfCar = Integer.parseInt(fieldYear.getText());
+            Long phoneOfOwner = Long.parseLong(fieldPhone.getText());
+            Integer mileageOfCar = Integer.parseInt(fieldMileage.getText());
+            Integer priceOfCar = Integer.parseInt(fieldPrice.getText());
             File img = getImage();
             String bi = briefInfo.getText();
 
             Car myCar = new Car(brandOfCar, modelOfCar, yearOfCar, phoneOfOwner, mileageOfCar, priceOfCar, img, bi);
             if (!brandOfCar.equals("") && !brandOfCar.equals("Марка") && !modelOfCar.equals("") &&
-            (Integer.parseInt(yearOfCar) >= 1900 &&
-            Integer.parseInt(yearOfCar) <= 2021) && Integer.parseInt(priceOfCar) >= 0 &&
-            Integer.parseInt(mileageOfCar) >= 0 && Long.parseLong(phoneOfOwner) >= 89000000000L && Long.parseLong(phoneOfOwner) <= 89999999999L) {
+            yearOfCar >= 1900 && yearOfCar <= 2021 && priceOfCar >= 0 &&
+            mileageOfCar >= 0 && phoneOfOwner >= 89000000000L && phoneOfOwner <= 89999999999L) {
 
                 MarketPlace.addNewAd(myCar);
                 MarketPlace.updateUserToAdvert(myCar);
@@ -131,8 +128,8 @@ public class ControllerAdd {
                 label.setText("Объявление успешно добавлено!");
                 label.setTextFill(GREEN);
             }
-            else if (Integer.parseInt(yearOfCar) < 1900 || Integer.parseInt(yearOfCar) > 2021 || Integer.parseInt(phoneOfOwner) < 0
-            || Integer.parseInt(priceOfCar) < 0 || Integer.parseInt(mileageOfCar) < 0) {
+            else if (yearOfCar < 1900 || yearOfCar > 2021 || phoneOfOwner < 0
+            || priceOfCar < 0 || mileageOfCar < 0) {
                 label.setText("Введено некорректное значение!");
                 label.setTextFill(RED);
             }

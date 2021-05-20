@@ -2,7 +2,6 @@ package cars.app.loading;
 
 import cars.app.logic.BaseOfUsers;
 import cars.app.logic.Car;
-import cars.app.logic.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -70,7 +69,6 @@ public class ControllerAcc {
 
         String newLogin = login.getText();
         String newPassword = password.getText();
-        User newUser = new User(newLogin, newPassword);
 
         BaseOfUsers.loadListOfUsers();
         Map<String, String> m = BaseOfUsers.getListOfUsers();
@@ -139,12 +137,12 @@ public class ControllerAcc {
 
         String user = MainWindow.getUSER();
         Integer id = Integer.valueOf(forDelete.getText());
-            if (tempUsers.get(user).contains(id)) {
+        ArrayList<Integer> myCars = tempUsers.get(user);
 
-                ArrayList<Integer> tempList = tempUsers.get(user);
+            if (myCars.contains(id)) {
 
-                tempList.remove(id);
-                tempUsers.put(user, tempList);
+                myCars.remove(id);
+                tempUsers.put(user, myCars);
                 tempCars.remove(id);
 
                 MarketPlace.setListOfCars(tempCars);

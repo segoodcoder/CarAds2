@@ -10,7 +10,7 @@
       <TextField fx:id="fieldModel" layoutX="300.0" layoutY="101.0" prefHeight="25.0" prefWidth="247.0" promptText="Модель" />
       <TextField fx:id="fieldPhone" layoutX="300.0" layoutY="148.0" prefHeight="25.0" prefWidth="247.0" promptText="Телефон (формат 89ххххххххх)" />
       <TextField fx:id="fieldPrice" layoutX="300.0" layoutY="197.0" prefHeight="25.0" prefWidth="247.0" promptText="Цена, руб" />
-      <TextField fx:id="fieldYear" layoutX="32.0" layoutY="148.0" prefHeight="25.0" prefWidth="247.0" promptText="Год выпуска" />
+      <TextField fx:id="fieldYear" layoutX="32.0" layoutY="148.0" prefHeight="25.0" prefWidth="247.0" promptText="Год выпуска (от 1900 до 2021)" />
       <TextField fx:id="fieldMileage" layoutX="32.0" layoutY="197.0" prefHeight="25.0" prefWidth="247.0" promptText="Пробег, км" />
       <Label layoutX="32.0" layoutY="42.0" text="Добавить автомобиль">
          <font>

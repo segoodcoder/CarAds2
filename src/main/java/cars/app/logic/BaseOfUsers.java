@@ -55,7 +55,4 @@ public class BaseOfUsers {
         return INSTANCE;
     }
 
-    public static void addNewUser (User user) {
-        listOfUsers.put(user.getLogin(), user.getPassword());
-    }
 }

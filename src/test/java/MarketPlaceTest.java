@@ -1,18 +1,13 @@
 import cars.app.loading.MainWindow;
 import cars.app.logic.Car;
 import cars.app.logic.MarketPlace;
-import cars.app.logic.User;
-import com.sun.tools.javac.Main;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.*;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.Assert.*;
 
 public class MarketPlaceTest {
 
@@ -27,7 +22,7 @@ public class MarketPlaceTest {
     public void updateUserToAdvert() {
         String username = "user1";
         MainWindow.setUSER(username);
-        Car car = new Car("Volvo", "V90", "2020", "2231", "23123", "4000000",
+        Car car = new Car("Volvo", "V90", 2020, 2231L, 23123, 4000000,
                 new File("C:\\img\\90.jpg"), "good car");
         ArrayList<Integer> l = new ArrayList<>();
         l.add(car.hashCode());
@@ -41,7 +36,7 @@ public class MarketPlaceTest {
     public void loadUserToAdvert() throws IOException {
         String username = "user1";
         MainWindow.setUSER(username);
-        MarketPlace.setPathToCacheAds("src//main//java//cars//app//testing//forTest.txt");
+        MarketPlace.setPathToCacheAds("testing/forTest.txt");
         ArrayList<Integer> i = new ArrayList<>();
         i.add(982138231);
         i.add(21313313);
@@ -55,7 +50,7 @@ public class MarketPlaceTest {
     @Test
     public void getListOfCars() {
         Map<Integer, Car> m = new HashMap<>();
-        Car car = new Car("Volvo", "V90", "2020", "2231", "23123", "4000000",
+        Car car = new Car("Volvo", "V90", 2020, 2231L, 23123, 4000000,
                 new File("C:\\img\\90.jpg"), "good car");
         m.put(car.hashCode(), car);
         MarketPlace.setListOfCars(m);
@@ -65,18 +60,18 @@ public class MarketPlaceTest {
     @Test
     public void loadListOfCars() throws IOException {
         Map<Integer, Car> m = new HashMap<>();
-        Car car = new Car("Volvo", "V90", "2020", "2231", "23123", "4000000",
+        Car car = new Car("Volvo", "V90", 2020, 2231L, 23123, 4000000,
                 new File("C:\\img\\90.jpg"), "good car");
         m.put(car.hashCode(), car);
-        MarketPlace.setPathToCash("src//main//java//cars//app//testing//forTest2.txt");
+        MarketPlace.setPathToCash("testing/forTest2.txt");
         MarketPlace.loadListOfCars();
         Assert.assertEquals(MarketPlace.getListOfCars(), m);
     }
 
     @Test
     public void saveCarsAndUsers() throws IOException {
-        String path = "src//main//java//cars//app//testing//forTest3.txt";
-        String pathExpected = "src//main//java//cars//app//testing//forTest3Expected.txt";
+        String path = "testing/forTest3.txt";
+        String pathExpected = "testing/forTest3Expected.txt";
         MarketPlace.setPathToCacheAds(path);
         String u = "user333";
         MainWindow.setUSER(u);
@@ -93,7 +88,7 @@ public class MarketPlaceTest {
     @Test
     public void addNewAd() {
         Map<Integer, Car> m = new HashMap<>();
-        Car car = new Car("Volvo", "V90", "2020", "2231", "23123", "4000000",
+        Car car = new Car("Volvo", "V90", 2020, 2231L, 23123, 4000000,
                 new File("C:\\img\\90.jpg"), "good car");
         m.put(car.hashCode(), car);
         MarketPlace.addNewAd(car);
