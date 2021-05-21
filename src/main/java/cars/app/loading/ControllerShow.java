@@ -73,8 +73,8 @@ public class ControllerShow {
                 hashCode.setMaxSize(200, 40);
 
                 ig = new ImageView();
-                ig.setFitHeight(100);
-                ig.setFitWidth(200);
+                ig.setFitHeight(270);
+                ig.setFitWidth(405);
 
                 brand = new Label(car.getBrand() + " ");
                 brand.setFont(Font.font("Arial", FontWeight.BOLD, 12));
@@ -120,6 +120,7 @@ public class ControllerShow {
                 }
 
                 briefInfo = new Label("\n Краткая информация: \n" + car.getBriefInfo());
+                briefInfo.setMaxSize(300, 200);
                 briefInfo.setWrapText(true);
 
                 hbl.getChildren().addAll(hashCode, brand, model, year, phone, mileage, price, ig, briefInfo);

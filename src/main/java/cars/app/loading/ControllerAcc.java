@@ -54,7 +54,7 @@ public class ControllerAcc {
         URL url = getClass().getResource("/cars/app/mainWindow.fxml");
         loader.setLocation(url);
         Pane root = loader.load();
-        root.getChildren().add(new Label(USER));
+        root.getChildren().add(new Label("\n  Текущий пользователь: " + USER));
         Scene sc = new Scene(root);
 
         Stage p = MainWindow.getpStage();
@@ -124,6 +124,7 @@ public class ControllerAcc {
         else {
             lc.setText("Имя пользователя не найдено!");
             lc.setTextFill(RED);
+            lc.setWrapText(true);
         }
         login.clear();
         password.clear();
@@ -158,6 +159,7 @@ public class ControllerAcc {
                     MarketPlace.setUserToAdvert(tempUsers);
 
                     MarketPlace.saveCarsFalse();
+                    forDelete.clear();
                 }
             } catch (Exception e) {
                 bigLabel.setText("Объявление не существует или Вам не принадлежит!");

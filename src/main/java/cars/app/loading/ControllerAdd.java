@@ -66,7 +66,7 @@ public class ControllerAdd {
         URL url = getClass().getResource("/cars/app/mainWindow.fxml");
         loader.setLocation(url);
         Pane root = loader.load();
-        root.getChildren().add(new Label(USER));
+        root.getChildren().add(new Label("\n  Текущий пользователь: " + USER));
         Scene sc = new Scene(root);
         stage.setScene(sc);
         stage.show();
@@ -99,47 +99,53 @@ public class ControllerAdd {
 
     public void addNewCar() {
         try {
-            String brandOfCar = brand.getValue();
-            String modelOfCar = fieldModel.getText();
-            int yearOfCar = Integer.parseInt(fieldYear.getText());
-            long phoneOfOwner = Long.parseLong(fieldPhone.getText());
-            int mileageOfCar = Integer.parseInt(fieldMileage.getText());
-            int priceOfCar = Integer.parseInt(fieldPrice.getText());
-            File img = getImage();
-            String bi = briefInfo.getText();
+            try {
+                NullPointerException z = new NullPointerException();
+                String brandOfCar = brand.getValue();
+                String modelOfCar = fieldModel.getText();
+                int yearOfCar = Integer.parseInt(fieldYear.getText());
+                long phoneOfOwner = Long.parseLong(fieldPhone.getText());
+                int mileageOfCar = Integer.parseInt(fieldMileage.getText());
+                int priceOfCar = Integer.parseInt(fieldPrice.getText());
+                File img = getImage();
+                if (getImage() == null) throw z;
+                String bi = briefInfo.getText();
 
-            Car myCar = new Car(brandOfCar, modelOfCar, yearOfCar, phoneOfOwner, mileageOfCar, priceOfCar, img, bi);
-            if (!brandOfCar.equals("") && !brandOfCar.equals("Марка") && !modelOfCar.equals("") &&
-            yearOfCar >= 1900 && yearOfCar <= 2021 && priceOfCar >= 0 &&
-            mileageOfCar >= 0 && phoneOfOwner >= 89000000000L && phoneOfOwner <= 89999999999L) {
+                Car myCar = new Car(brandOfCar, modelOfCar, yearOfCar, phoneOfOwner, mileageOfCar, priceOfCar, img, bi);
+                if (!brandOfCar.equals("") && !brandOfCar.equals("Марка") && !modelOfCar.equals("") &&
+                        yearOfCar >= 1900 && yearOfCar <= 2021 && priceOfCar >= 0 &&
+                        mileageOfCar >= 0 && phoneOfOwner >= 89000000000L && phoneOfOwner <= 89999999999L) {
 
-                MarketPlace.addNewAd(myCar);
-                MarketPlace.updateUserToAdvert(myCar);
+                    MarketPlace.addNewAd(myCar);
+                    MarketPlace.updateUserToAdvert(myCar);
 
-                brand.setValue("Марка");
-                fieldModel.clear();
-                fieldYear.clear();
-                fieldPhone.clear();
-                fieldMileage.clear();
-                fieldPrice.clear();
-                briefInfo.clear();
+                    brand.setValue("Марка");
+                    fieldModel.clear();
+                    fieldYear.clear();
+                    fieldPhone.clear();
+                    fieldMileage.clear();
+                    fieldPrice.clear();
+                    briefInfo.clear();
 
-                label.setText("Объявление успешно добавлено!");
-                label.setTextFill(GREEN);
-            }
-            else if (yearOfCar < 1900 || yearOfCar > 2021 || phoneOfOwner < 0
-            || priceOfCar < 0 || mileageOfCar < 0) {
-                label.setText("Введено некорректное значение!");
+                    label.setText("Объявление успешно добавлено!");
+                    label.setTextFill(GREEN);
+                } else if (yearOfCar < 1900 || yearOfCar > 2021 || phoneOfOwner < 0
+                        || priceOfCar < 0 || mileageOfCar < 0) {
+                    label.setText("Введено некорректное значение!\n" +
+                            "Год - от 1900 до 2021, пробег, цена - положительные целые числа\n" +
+                            "Телефон - 11 цифр (начиная с 89)");
+                    label.setTextFill(RED);
+                } else {
+                    label.setText("Заполните обязательные поля!");
+                    label.setTextFill(RED);
+                }
+
+            } catch (NullPointerException z) {
+                label.setText("Заполните поля, прикрепите фото!");
                 label.setTextFill(RED);
             }
-            else {
-                label.setText("Заполните обязательные поля!");
-                label.setTextFill(RED);
-            }
-
-        }
-        catch (NumberFormatException n) {
-            label.setText("Пробег, цена, телефон, год - целые числа! Заполните поля или исправьте значения");
+        } catch (NumberFormatException n) {
+            label.setText("Пробег, цена, телефон, год - целые числа! Исправьте значения");
             label.setTextFill(RED);
         }
     }

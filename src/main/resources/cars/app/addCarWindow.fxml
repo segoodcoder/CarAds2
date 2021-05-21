@@ -19,7 +19,7 @@
       </Label>
       <ComboBox fx:id="brand" layoutX="33.0" layoutY="101.0" onAction="#newAuto" prefHeight="25.0" prefWidth="247.0" promptText="Марка">
       </ComboBox>
-      <Label fx:id="label" layoutX="33.0" layoutY="239.0" prefHeight="52.0" prefWidth="247.0" text="Дополнительная информация не обязательна, фото - обязательно" wrapText="true" />
+      <Label fx:id="label" layoutX="33.0" layoutY="235.0" prefHeight="92.0" prefWidth="247.0" text="Все поля обязательны для заполнения!" wrapText="true" />
       <Button fx:id="close" layoutX="502.0" layoutY="48.0" mnemonicParsing="false" onAction="#closeWindowAdd" text="Назад" />
       <Button fx:id="addPhoto" layoutX="31.0" layoutY="335.0" mnemonicParsing="false" onAction="#addPhotograph" prefHeight="25.0" prefWidth="159.0" text="Добавить фото" />
       <TextField fx:id="briefInfo" layoutX="300.0" layoutY="246.0" prefHeight="25.0" prefWidth="247.0" promptText="Краткое описание" />
